@@ -33,7 +33,7 @@ const others = services.filter((s) => s !== featured);
   <section class="section section-mist">
     <div class="container">
       <div class="section-head"><h2>More services</h2></div>
-      <div class="grid grid-3">
+      <div class="grid grid-tiles">
         {
           others.map((s) => (
             <div class="card card-hover" data-reveal>
@@ -51,6 +51,7 @@ const others = services.filter((s) => s !== featured);
   <section class="section">
     <div class="container">
       <div class="card cta-band" data-reveal>
+        <span class="card-icon"><Icon name="phone" /></span>
         <p>Speak with our team to learn which service is right for you.</p>
         <div class="btn-row">
           <a href={site.phone.href} class="btn btn-primary"><Icon name="phone" size={18} /> {site.phone.display}</a>

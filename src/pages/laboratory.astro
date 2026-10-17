@@ -14,7 +14,7 @@ import { site, labMenu } from '../data/site';
 
   <section class="section" style="padding-top:0">
     <div class="container">
-      <Photo slot="lab-header" label="WMC laboratory" ratio="16 / 9" eager />
+      <Photo slot="lab-header" label="WMC laboratory" ratio="21 / 9" mobileRatio="16 / 9" eager />
     </div>
   </section>
 
@@ -32,7 +32,7 @@ import { site, labMenu } from '../data/site';
                 <Icon name="chevron" class="lab-chevron" />
               </summary>
               <ul class="lab-tests">
-                {group.tests.map((t) => <li>{t}</li>)}
+                {group.tests.map((t, j) => <li style={`--i: ${j}`}>{t}</li>)}
               </ul>
             </details>
           ))
@@ -47,6 +47,7 @@ import { site, labMenu } from '../data/site';
   <section class="section" style="padding-top:0">
     <div class="container">
       <div class="card cta-band" data-reveal>
+        <span class="card-icon"><Icon name="flask" /></span>
         <p>Call us to ask about a test.</p>
         <div class="btn-row">
           <a href={site.phone.href} class="btn btn-primary"><Icon name="phone" size={18} /> {site.phone.display}</a>
