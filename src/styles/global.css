@@ -22,9 +22,9 @@
   --sky: #4BA3E3;         /* decorative only — never text */
 
   /* Glass & overlays */
-  --glass: rgba(251, 252, 253, 0.72);
-  --glass-border: rgba(255, 255, 255, 0.6);
-  --glass-blur: 16px;
+  --glass: rgba(228, 239, 252, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.75);
+  --glass-blur: 18px;
   --overlay: linear-gradient(135deg, rgba(5, 58, 126, 0.80), rgba(6, 76, 164, 0.50));
   --urgent-glass: rgba(208, 29, 44, 0.08);
   --urgent-glass-border: rgba(208, 29, 44, 0.25);
@@ -42,6 +42,11 @@
   --soft-on-dark: #C9D7EC;
   --footer-ink: #DCE5F3;
   --photo-label-bg: rgba(251, 252, 253, 0.85);
+  --card: rgba(251, 252, 253, 0.74);           /* translucent cards over the blue wash */
+  --card-border: rgba(6, 76, 164, 0.10);
+  --mist-band: rgba(214, 229, 248, 0.55);      /* alternating sections */
+  --glow-1: rgba(75, 163, 227, 0.36);          /* sky wash behind the page */
+  --glow-2: rgba(6, 76, 164, 0.18);
 
   /* Layout & type (derived) */
   --radius-sm: 12px;
@@ -68,8 +73,13 @@
     --blue-mist: #1A2840;
     --red-blush: #2A1518;
     --red-text: #FF9AA0;
-    --glass: rgba(22, 30, 45, 0.78);
-    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass: rgba(30, 48, 78, 0.55);
+    --glass-border: rgba(140, 180, 240, 0.16);
+    --card: rgba(22, 32, 50, 0.72);
+    --card-border: rgba(126, 176, 242, 0.14);
+    --mist-band: rgba(26, 44, 74, 0.5);
+    --glow-1: rgba(75, 163, 227, 0.16);
+    --glow-2: rgba(6, 76, 164, 0.28);
     --urgent-glass-border: rgba(229, 72, 77, 0.35);
     --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
     --shadow-lift: 0 14px 32px rgba(0, 0, 0, 0.45);
@@ -93,8 +103,13 @@
   --blue-mist: #1A2840;
   --red-blush: #2A1518;
   --red-text: #FF9AA0;
-  --glass: rgba(22, 30, 45, 0.78);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass: rgba(30, 48, 78, 0.55);
+  --glass-border: rgba(140, 180, 240, 0.16);
+  --card: rgba(22, 32, 50, 0.72);
+  --card-border: rgba(126, 176, 242, 0.14);
+  --mist-band: rgba(26, 44, 74, 0.5);
+  --glow-1: rgba(75, 163, 227, 0.16);
+  --glow-2: rgba(6, 76, 164, 0.28);
   --urgent-glass-border: rgba(229, 72, 77, 0.35);
   --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   --shadow-lift: 0 14px 32px rgba(0, 0, 0, 0.45);
@@ -119,6 +134,17 @@ body {
   font-family: var(--font);
   font-size: 1.0625rem;
   line-height: 1.6;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(55% 45% at 85% 5%, var(--glow-1), transparent 70%),
+    radial-gradient(50% 45% at 5% 40%, var(--glow-2), transparent 70%),
+    radial-gradient(60% 50% at 90% 95%, var(--glow-1), transparent 70%);
 }
 img, svg { display: block; max-width: 100%; }
 img { height: auto; }
@@ -152,7 +178,7 @@ ul { padding-left: 1.2em; }
 
 .container { width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
 .section { padding: var(--section) 0; }
-.section-mist { background: var(--blue-mist); }
+.section-mist { background: var(--mist-band); }
 .section-head { max-width: 680px; margin-bottom: 40px; }
 .section-head-center { margin-left: auto; margin-right: auto; text-align: center; }
 .eyebrow {
@@ -224,8 +250,8 @@ ul { padding-left: 1.2em; }
    Surfaces
    ========================================================================== */
 .card {
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--card);
+  border: 1px solid var(--card-border);
   border-radius: var(--radius);
   padding: 24px;
   box-shadow: var(--shadow);
@@ -246,7 +272,7 @@ ul { padding-left: 1.2em; }
 }
 /* Backdrop blur is used on a few key surfaces only (slow on low-end Android). */
 .glass {
-  background: var(--glass);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 60%), var(--glass);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -339,22 +365,16 @@ ul { padding-left: 1.2em; }
 .logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
 .logo-mark {
   flex: none;
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
-  border: 2px dashed var(--blue);
-  color: var(--blue);
-  background: var(--surface);
-  font-weight: 800;
-  font-size: 0.8125rem;
-  letter-spacing: 0.02em;
+  background: #FFFFFF; /* the logo is drawn on white */
+  box-shadow: 0 0 0 1px var(--border), 0 4px 12px rgba(6, 76, 164, 0.12);
 }
 .logo-text { display: grid; line-height: 1.15; }
 .logo-name { font-weight: 800; color: var(--ink); font-size: 1rem; }
 .logo-sub { font-size: 0.75rem; color: var(--ink-2); }
-.logo-inverse .logo-mark { background: transparent; border-color: var(--on-dark); color: var(--on-dark); }
+.logo-inverse .logo-mark { box-shadow: 0 0 0 2px rgba(251, 252, 253, 0.35); }
 .logo-inverse .logo-name { color: var(--on-dark); }
 .logo-inverse .logo-sub { color: var(--soft-on-dark); }
 
@@ -365,7 +385,7 @@ ul { padding-left: 1.2em; }
   position: sticky;
   top: 0;
   z-index: 50;
-  background: var(--bg);
+  background: transparent;
   border-bottom: 1px solid transparent;
   transition: background-color 0.25s var(--ease), border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
 }
