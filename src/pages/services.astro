@@ -1,4 +1,5 @@
 ---
+import { url } from '../lib/url';
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import Photo from '../components/Photo.astro';
@@ -39,7 +40,7 @@ const others = services.filter((s) => s !== featured);
               <span class="card-icon"><Icon name={s.icon} /></span>
               <h3>{s.title}</h3>
               <Todo text="short description" />
-              {s.icon === 'flask' && <p style="margin-top:12px"><a href="/laboratory/">See the test menu</a></p>}
+              {s.icon === 'flask' && <p style="margin-top:12px"><a href={url('/laboratory/')}>See the test menu</a></p>}
             </div>
           ))
         }
@@ -53,7 +54,7 @@ const others = services.filter((s) => s !== featured);
         <p>Speak with our team to learn which service is right for you.</p>
         <div class="btn-row">
           <a href={site.phone.href} class="btn btn-primary"><Icon name="phone" size={18} /> {site.phone.display}</a>
-          <a href="/contact/" class="btn btn-ghost">Contact &amp; appointments</a>
+          <a href={url('/contact/')} class="btn btn-ghost">Contact &amp; appointments</a>
         </div>
       </div>
     </div>
