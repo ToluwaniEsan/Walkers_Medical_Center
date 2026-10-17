@@ -24,7 +24,18 @@ const fullTitle = title === site.shortName ? `${site.name}` : `${title} | ${site
     <meta name="description" content={description} />
     <meta name="theme-color" content="#064CA4" />
     <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
-    <script is:inline>document.documentElement.classList.add('js');</script>
+    <script is:inline>
+      // Runs before paint so the chosen theme shows without a flash.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        var saved = null;
+        try { saved = localStorage.getItem('wmc-theme'); } catch (e) {}
+        if (saved === 'dark' || saved === 'light') root.dataset.theme = saved;
+        var dark = saved ? saved === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+        root.classList.toggle('is-dark', dark);
+      })();
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
