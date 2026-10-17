@@ -14,7 +14,7 @@ import { site, services, whyChoose, facilities, promise, labMenu } from '../data
     <div class="container hero-grid">
       <div class="hero-card glass" data-reveal>
         <p class="eyebrow">Ile-Ife &amp; Ede, Osun State</p>
-        <h1>{site.name}</h1>
+        <h1>{site.shortName}<span class="hero-sub">&amp; Orthopaedic Specialist Hospital</span></h1>
         <p class="hero-motto">“{site.motto}”</p>
         <p class="muted">{site.hours.summary}. {site.hours.notes[0]}</p>
         <div class="btn-row">
@@ -23,7 +23,7 @@ import { site, services, whyChoose, facilities, promise, labMenu } from '../data
           <a href={site.locations[0].directions} class="btn btn-ghost" rel="noopener"><Icon name="pin" size={18} /> Get directions</a>
         </div>
       </div>
-      <Photo slot="home-hero" label="Hospital exterior or care team" ratio="16 / 9" mobileRatio="4 / 5" eager />
+      <Photo slot="home-hero" label="Hospital exterior or care team" ratio="16 / 9" mobileRatio="3 / 2" class="hero-photo" eager />
     </div>
   </section>
 
@@ -34,7 +34,7 @@ import { site, services, whyChoose, facilities, promise, labMenu } from '../data
       <div class="section-head">
         <h2>Our services</h2>
       </div>
-      <div class="grid grid-3">
+      <div class="grid grid-tiles">
         {
           services.map((s) => (
             <a href={url('/services/')} class="card card-hover" data-reveal style="text-decoration:none;color:inherit">
@@ -53,12 +53,13 @@ import { site, services, whyChoose, facilities, promise, labMenu } from '../data
       <div class="section-head">
         <h2>Why choose Walkers</h2>
       </div>
-      <div class="grid grid-4">
+      <div class="grid grid-4 grid-features">
         {
           whyChoose.map((w) => (
             <div class="card feature" data-reveal>
               <span class="card-icon"><Icon name={w.icon} /></span>
               <h3>{w.title}</h3>
+              {w.text && <p>{w.text}</p>}
             </div>
           ))
         }
@@ -72,7 +73,7 @@ import { site, services, whyChoose, facilities, promise, labMenu } from '../data
       <div data-reveal>
         <h2>Facilities &amp; care</h2>
         <p class="lead">{facilities}</p>
-        <a href={url('/about/')} class="btn btn-ghost">About us <Icon name="arrow" size={18} /></a>
+        <a href={url('/about/')} class="btn btn-ghost">About us <Icon name="arrow" size={18} class="btn-arrow" /></a>
       </div>
     </div>
   </section>
@@ -82,21 +83,14 @@ import { site, services, whyChoose, facilities, promise, labMenu } from '../data
       <div class="section-head">
         <h2>Laboratory &amp; diagnostics</h2>
       </div>
-      <div class="grid grid-3">
+      <ul class="lab-summary" data-reveal>
         {
           labMenu.map((group) => (
-            <div class="card" data-reveal>
-              <span class="card-icon"><Icon name="microscope" /></span>
-              <h3>{group.category}</h3>
-              <ul class="lab-teaser muted">
-                {group.tests.slice(0, 3).map((t) => <li>{t}</li>)}
-              </ul>
-              {group.tests.length > 3 && <p class="muted">+ {group.tests.length - 3} more</p>}
-            </div>
+            <li class="chip"><Icon name="microscope" size={16} /> {group.category} <span>· {group.tests.length} tests</span></li>
           ))
         }
-      </div>
-      <p style="margin-top:28px"><a href={url('/laboratory/')} class="btn btn-primary">See the full test menu <Icon name="arrow" size={18} /></a></p>
+      </ul>
+      <a href={url('/laboratory/')} class="btn btn-primary">See all tests <Icon name="arrow" size={18} class="btn-arrow" /></a>
     </div>
   </section>
 
@@ -105,7 +99,7 @@ import { site, services, whyChoose, facilities, promise, labMenu } from '../data
       <div data-reveal>
         <h2>Community outreach</h2>
         <Todo block text="Short summary of WMC community outreach programmes." />
-        <p style="margin-top:20px"><a href={url('/outreach/')} class="btn btn-ghost">Our outreach <Icon name="arrow" size={18} /></a></p>
+        <p style="margin-top:20px"><a href={url('/outreach/')} class="btn btn-ghost">Our outreach <Icon name="arrow" size={18} class="btn-arrow" /></a></p>
       </div>
       <Photo slot="home-outreach" label="Community outreach event" ratio="4 / 3" />
     </div>
@@ -113,9 +107,9 @@ import { site, services, whyChoose, facilities, promise, labMenu } from '../data
 
   <section class="section" style="padding-top:0">
     <div class="container">
-      <div class="promise" data-reveal>
+      <div class="promise glass" data-reveal>
         <p class="eyebrow">Our promise</p>
-        <h2>“{site.motto}”</h2>
+        <h2 class="promise-quote">“{site.motto}”</h2>
         <p>{promise}</p>
       </div>
     </div>

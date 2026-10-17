@@ -18,11 +18,16 @@ const applyTheme = (dark: boolean) => {
 applyTheme(root.classList.contains('is-dark'));
 themeToggle?.addEventListener('click', () => {
   const dark = !root.classList.contains('is-dark');
-  root.dataset.theme = dark ? 'dark' : 'light';
+  const swap = () => {
+    root.dataset.theme = dark ? 'dark' : 'light';
+    applyTheme(dark);
+  };
   try {
-    localStorage.setItem('wmc-theme', root.dataset.theme);
+    localStorage.setItem('wmc-theme', dark ? 'dark' : 'light');
   } catch {}
-  applyTheme(dark);
+  // Brief cross-fade between themes where supported.
+  if (!reduceMotion && document.startViewTransition) document.startViewTransition(swap);
+  else swap();
 });
 darkQuery.addEventListener('change', (e) => {
   if (!root.dataset.theme) applyTheme(e.matches);
@@ -43,11 +48,24 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Fade-and-rise as sections scroll into view.
+// Fade-and-rise as sections scroll into view. Cards in the same grid follow
+// one another; once shown, the element drops back to its normal transitions.
 const revealables = document.querySelectorAll<HTMLElement>('[data-reveal]');
 if (reduceMotion || !('IntersectionObserver' in window)) {
   revealables.forEach((el) => el.classList.add('is-visible'));
 } else {
+  revealables.forEach((el) => {
+    const siblings = el.parentElement ? [...el.parentElement.children].filter((c) => c.hasAttribute('data-reveal')) : [];
+    const i = siblings.indexOf(el);
+    if (i > 0) el.style.transitionDelay = `${Math.min(i, 5) * 80}ms`;
+    el.addEventListener('transitionend', function done(e) {
+      if (e.target !== el || e.propertyName !== 'opacity') return;
+      el.style.transitionDelay = '';
+      el.removeAttribute('data-reveal');
+      el.classList.remove('is-visible');
+      el.removeEventListener('transitionend', done);
+    });
+  });
   const io = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
@@ -77,4 +95,11 @@ if (!reduceMotion) {
     target.appendChild(ripple);
     ripple.addEventListener('animationend', () => ripple.remove());
   });
+}
+
+// Hide the floating call button once the footer (which has the number) is on screen.
+const fab = document.querySelector<HTMLElement>('.call-fab');
+const footer = document.querySelector('.site-footer');
+if (fab && footer && 'IntersectionObserver' in window) {
+  new IntersectionObserver(([entry]) => fab.classList.toggle('is-hidden', entry.isIntersecting)).observe(footer);
 }

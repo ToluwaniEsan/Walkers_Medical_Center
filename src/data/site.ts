@@ -54,12 +54,13 @@ export const promise =
 export const facilities =
   'Modern diagnostic facilities and a team committed to safe, attentive treatment.';
 
-export const whyChoose = [
-  { title: 'Compassionate, respectful care', icon: 'heart' },
-  { title: 'Affordable, quality healthcare', icon: 'shield' },
-  { title: 'Ethical care from a professional team', icon: 'users' },
-  { title: 'Convenient locations in Osun State', icon: 'pin' },
-] as const;
+// `text` is an optional one-line explanation, shown once the hospital supplies it.
+export const whyChoose: { title: string; icon: string; text: string | null }[] = [
+  { title: 'Compassionate, respectful care', icon: 'heart', text: null },
+  { title: 'Affordable, quality healthcare', icon: 'shield', text: null },
+  { title: 'Ethical care from a professional team', icon: 'users', text: null },
+  { title: 'Convenient locations in Osun State', icon: 'pin', text: null },
+];
 
 export const services = [
   { title: 'Orthopaedic consultations & surgeries', icon: 'bone', featured: true },

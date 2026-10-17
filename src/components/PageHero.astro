@@ -1,4 +1,6 @@
 ---
+import { url } from '../lib/url';
+
 interface Props {
   eyebrow?: string;
   title: string;
@@ -9,7 +11,16 @@ const { eyebrow, title, intro } = Astro.props;
 
 <section class="page-hero">
   <div class="container">
-    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    {
+      eyebrow && (
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href={url('/')}>Home</a></li>
+            <li><span aria-current="page">{eyebrow}</span></li>
+          </ol>
+        </nav>
+      )
+    }
     <h1>{title}</h1>
     {intro && <p class="lead">{intro}</p>}
     <slot />
