@@ -1,0 +1,43 @@
+---
+import { nav, site } from '../data/site';
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+
+const path = Astro.url.pathname;
+---
+
+<header class="site-header" data-header>
+  <div class="container header-inner">
+    <a href="/" class="header-logo" aria-label={`${site.shortName}, home`}>
+      <Logo />
+    </a>
+    <nav class="main-nav" id="main-nav" aria-label="Main">
+      <ul>
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <a href={site.phone.href} class="btn btn-primary header-call">
+      <Icon name="phone" size={18} />
+      <span>Call</span>
+    </a>
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-controls="main-nav"
+      aria-expanded="false"
+      aria-label="Open menu"
+      data-nav-toggle
+    >
+      <Icon name="menu" class="icon-open" />
+      <Icon name="close" class="icon-close" />
+    </button>
+  </div>
+</header>

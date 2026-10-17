@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Photo from '../components/Photo.astro';
+import Todo from '../components/Todo.astro';
+import PageHero from '../components/PageHero.astro';
+import UrgentBanner from '../components/UrgentBanner.astro';
+import { site } from '../data/site';
+
+const [ife, ede] = site.locations;
+const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(ife.address)}&output=embed`;
+---
+
+<Base title="Contact & Appointments">
+  <UrgentBanner title="Emergency? Call our 24-hour line now" text={site.hours.notes[0]} />
+
+  <PageHero eyebrow="Contact" title="Contact & Appointments" />
+
+  <section class="section" style="padding-top:0">
+    <div class="container grid grid-3">
+      <div class="card contact-card" data-reveal>
+        <span class="card-icon"><Icon name="phone" /></span>
+        <h2 class="h3">Phone</h2>
+        <p class="contact-value">{site.phone.display}</p>
+        <p class="muted">{site.phone.label}</p>
+        <a href={site.phone.href} class="btn btn-primary"><Icon name="phone" size={18} /> Tap to call</a>
+      </div>
+      <div class="card contact-card" data-reveal>
+        <span class="card-icon"><Icon name="mail" /></span>
+        <h2 class="h3">Email</h2>
+        <p class="contact-value">{site.email}</p>
+        <a href={`mailto:${site.email}`} class="btn btn-ghost"><Icon name="mail" size={18} /> Tap to email</a>
+      </div>
+      <div class="card contact-card" data-reveal>
+        <span class="card-icon"><Icon name="clock" /></span>
+        <h2 class="h3">Hours</h2>
+        <p class="contact-value">{site.hours.summary}</p>
+        {site.hours.notes.map((n) => <p class="muted">{n}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-mist">
+    <div class="container">
+      <div class="section-head"><h2>Find us</h2></div>
+      <div class="grid grid-2">
+        <div class="card" data-reveal>
+          <span class="card-icon"><Icon name="pin" /></span>
+          <h3>{ife.name}</h3>
+          <address class="muted">{ife.address}</address>
+          <p style="margin-top:16px"><a href={ife.directions} class="btn btn-ghost" rel="noopener"><Icon name="pin" size={18} /> Get directions</a></p>
+        </div>
+        <div class="card" data-reveal>
+          <span class="card-icon"><Icon name="pin" /></span>
+          <h3>{ede.name}</h3>
+          <p class="muted">{ede.region}</p>
+          <Todo block text="Ede branch street address and phone number." />
+        </div>
+      </div>
+      <div class="map-frame" style="margin-top:20px" data-map={mapSrc}>
+        <Photo slot="contact-map" label="Map of the Ile-Ife location" ratio="16 / 9" />
+        <div class="map-overlay">
+          <button type="button" class="btn btn-primary" data-map-load><Icon name="pin" size={18} /> Show map</button>
+          <p>The map loads from Google Maps only when you choose to show it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="card cta-band" data-reveal>
+        <h2>Call to book an appointment</h2>
+        <p>For now, appointments are booked by phone.</p>
+        <div class="btn-row">
+          <a href={site.phone.href} class="btn btn-primary"><Icon name="phone" size={18} /> {site.phone.display}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Click-to-load map, so Google is only contacted when the visitor asks.
+  const frame = document.querySelector<HTMLElement>('[data-map]');
+  frame?.querySelector('[data-map-load]')?.addEventListener('click', () => {
+    const figure = frame.querySelector('figure');
+    const iframe = document.createElement('iframe');
+    iframe.src = frame.dataset.map!;
+    iframe.title = 'Map of Walkers Medical Center, Ile-Ife';
+    iframe.loading = 'lazy';
+    iframe.referrerPolicy = 'no-referrer-when-downgrade';
+    figure?.replaceChildren(iframe);
+    frame.querySelector('.map-overlay')?.remove();
+  });
+</script>

@@ -1,0 +1,57 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Photo from '../components/Photo.astro';
+import Todo from '../components/Todo.astro';
+import PageHero from '../components/PageHero.astro';
+import { site, labMenu } from '../data/site';
+---
+
+<Base title="Laboratory & Diagnostics">
+  <PageHero eyebrow="Laboratory" title="Laboratory & Diagnostics">
+    <Todo block text="Short introduction to the WMC laboratory." />
+  </PageHero>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <Photo slot="lab-header" label="WMC laboratory" ratio="16 / 9" eager />
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="section-head"><h2>Test menu</h2></div>
+      <div class="lab-panels">
+        {
+          labMenu.map((group, i) => (
+            <details class="card lab-panel" open={i === 0}>
+              <summary>
+                <span class="card-icon"><Icon name="microscope" /></span>
+                {group.category}
+                <span class="lab-count">{group.tests.length} tests</span>
+                <Icon name="chevron" class="lab-chevron" />
+              </summary>
+              <ul class="lab-tests">
+                {group.tests.map((t) => <li>{t}</li>)}
+              </ul>
+            </details>
+          ))
+        }
+      </div>
+      <div style="margin-top:24px">
+        <Todo block text="Pricing note: show test prices, or ask patients to call for pricing (to be decided by the hospital)." />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="card cta-band" data-reveal>
+        <p>Call us to ask about a test.</p>
+        <div class="btn-row">
+          <a href={site.phone.href} class="btn btn-primary"><Icon name="phone" size={18} /> {site.phone.display}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,16 @@
+---
+// Logo slot. Swap the placeholder mark for the real logo file once supplied.
+import { site } from '../data/site';
+interface Props {
+  inverse?: boolean;
+}
+const { inverse = false } = Astro.props;
+---
+
+<span class:list={['logo', { 'logo-inverse': inverse }]}>
+  <span class="logo-mark" title="Logo placeholder: replace with the WMC logo file">{site.abbr}</span>
+  <span class="logo-text">
+    <span class="logo-name">{site.shortName}</span>
+    <span class="logo-sub">&amp; Orthopaedic Specialist Hospital</span>
+  </span>
+</span>

@@ -1,0 +1,54 @@
+---
+import { nav, site } from '../data/site';
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+import Todo from './Todo.astro';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <Logo inverse />
+      <p class="footer-motto">“{site.motto}”</p>
+    </div>
+    <div>
+      <h2 class="footer-heading">Visit us</h2>
+      <address>
+        {site.locations[0].address}<br />
+        {site.locations[1].region}: <em>address coming soon</em>
+      </address>
+    </div>
+    <div>
+      <h2 class="footer-heading">Contact</h2>
+      <ul class="footer-list">
+        <li><a href={site.phone.href}><Icon name="phone" size={18} /> {site.phone.display}</a></li>
+        <li><a href={`mailto:${site.email}`}><Icon name="mail" size={18} /> {site.email}</a></li>
+        <li>
+          {
+            site.linkedin ? (
+              <a href={site.linkedin} rel="noopener">
+                <Icon name="linkedin" size={18} /> LinkedIn
+              </a>
+            ) : (
+              <span class="footer-muted">
+                <Icon name="linkedin" size={18} /> LinkedIn <Todo text="page link" />
+              </span>
+            )
+          }
+        </li>
+      </ul>
+    </div>
+    <nav aria-label="Footer">
+      <h2 class="footer-heading">Pages</h2>
+      <ul class="footer-list">
+        {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        <li><a href="/privacy/">Privacy Policy</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="container footer-bottom">
+    <p>© {year} {site.name}</p>
+    <a href="/privacy/">Privacy Policy</a>
+  </div>
+</footer>

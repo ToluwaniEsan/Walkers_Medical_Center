@@ -1,0 +1,87 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Photo from '../components/Photo.astro';
+import Todo from '../components/Todo.astro';
+import PageHero from '../components/PageHero.astro';
+import ContactStrip from '../components/ContactStrip.astro';
+import { site, about, promise, units } from '../data/site';
+import type { PhotoSlot } from '../assets/photos';
+
+const gallery = [1, 2, 3, 4, 5, 6].map((n) => `about-gallery-${n}` as PhotoSlot);
+---
+
+<Base title="About us">
+  <PageHero eyebrow="About us" title="Who we are" />
+
+  <section class="section" style="padding-top:0">
+    <div class="container split">
+      <div data-reveal>
+        <p class="lead">{about}</p>
+      </div>
+      <Photo slot="about-who-we-are" label="Hospital building or team" ratio="4 / 3" eager />
+    </div>
+  </section>
+
+  <section class="section section-mist">
+    <div class="container grid grid-2">
+      <div class="card" data-reveal>
+        <span class="card-icon"><Icon name="community" /></span>
+        <h2 class="h3">Our motto</h2>
+        <p style="font-size:1.5rem;font-weight:800;color:var(--blue)">“{site.motto}”</p>
+      </div>
+      <div class="card" data-reveal>
+        <span class="card-icon"><Icon name="heart" /></span>
+        <h2 class="h3">Our promise</h2>
+        <p class="lead">{promise}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><h2>Our locations</h2></div>
+      <div class="grid grid-2">
+        <div class="card" data-reveal>
+          <span class="card-icon"><Icon name="building" /></span>
+          <h3>{site.locations[0].name}</h3>
+          <address class="muted">{site.locations[0].address}</address>
+          <p style="margin-top:16px"><a href={site.locations[0].directions} class="btn btn-ghost" rel="noopener"><Icon name="pin" size={18} /> Get directions</a></p>
+        </div>
+        <div class="card" data-reveal>
+          <span class="card-icon"><Icon name="building" /></span>
+          <h3>{site.locations[1].name}</h3>
+          <p class="muted">{site.locations[1].region}</p>
+          <Todo block text="Ede branch street address and phone number." />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-mist">
+    <div class="container">
+      <div class="section-head"><h2>Our units</h2></div>
+      <div class="grid grid-4">
+        {
+          units.map((u) => (
+            <div class="card" data-reveal>
+              <h3>{u.title}</h3>
+              {u.description ? <p class="muted">{u.description}</p> : <Todo text="short description" />}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><h2>Our facility</h2></div>
+      <div class="grid grid-3">
+        {gallery.map((slot, i) => <Photo slot={slot} label={`Facility photo ${i + 1}`} ratio="3 / 2" />)}
+      </div>
+    </div>
+  </section>
+
+  <ContactStrip />
+</Base>

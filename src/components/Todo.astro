@@ -1,0 +1,20 @@
+---
+// Marks content the hospital has not supplied yet. Never replace with made-up copy.
+interface Props {
+  text: string;
+  block?: boolean;
+}
+const { text, block = false } = Astro.props;
+---
+
+{
+  block ? (
+    <p class="todo todo-block">
+      <span class="todo-tag">Content needed</span> {text}
+    </p>
+  ) : (
+    <span class="todo">
+      <span class="todo-tag">Content needed</span> {text}
+    </span>
+  )
+}
