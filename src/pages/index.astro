@@ -6,7 +6,9 @@ import Photo from '../components/Photo.astro';
 import Todo from '../components/Todo.astro';
 import UrgentBanner from '../components/UrgentBanner.astro';
 import ContactStrip from '../components/ContactStrip.astro';
-import { site, services, whyChoose, facilities, promise, labMenu } from '../data/site';
+import { site, services, whyChoose, facilities, promise, labMenu, slug } from '../data/site';
+
+const labTotal = labMenu.reduce((n, g) => n + g.tests.length, 0);
 ---
 
 <Base title={site.shortName}>
@@ -80,17 +82,23 @@ import { site, services, whyChoose, facilities, promise, labMenu } from '../data
 
   <section class="section section-mist">
     <div class="container">
-      <div class="section-head">
+      <div class="section-head section-head-center">
         <h2>Laboratory &amp; diagnostics</h2>
+        <p class="lead">{labTotal} tests across haematology, chemistry and microbiology.</p>
       </div>
-      <ul class="lab-summary" data-reveal>
+      <div class="grid lab-cats">
         {
           labMenu.map((group) => (
-            <li class="chip"><Icon name="microscope" size={16} /> {group.category} <span>· {group.tests.length} tests</span></li>
+            <a href={url(`/laboratory/#${slug(group.category)}`)} class="card card-hover lab-cat" data-reveal>
+              <span class="card-icon"><Icon name="microscope" /></span>
+              <h3>{group.category}</h3>
+              <p class="lab-cat-count">{group.tests.length} tests</p>
+              <span class="lab-cat-link">View tests <Icon name="arrow" size={16} class="btn-arrow" /></span>
+            </a>
           ))
         }
-      </ul>
-      <a href={url('/laboratory/')} class="btn btn-primary">See all tests <Icon name="arrow" size={18} class="btn-arrow" /></a>
+      </div>
+      <p class="lab-cats-cta"><a href={url('/laboratory/')} class="btn btn-primary">See all tests <Icon name="arrow" size={18} class="btn-arrow" /></a></p>
     </div>
   </section>
 
