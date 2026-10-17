@@ -1,4 +1,5 @@
 ---
+import { url } from '../lib/url';
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import Photo from '../components/Photo.astro';
@@ -18,7 +19,7 @@ import { site, services, whyChoose, facilities, promise, labMenu } from '../data
         <p class="muted">{site.hours.summary}. {site.hours.notes[0]}</p>
         <div class="btn-row">
           <a href={site.phone.href} class="btn btn-primary"><Icon name="phone" size={18} /> Call now</a>
-          <a href="/contact/" class="btn btn-ghost"><Icon name="calendar" size={18} /> Book an appointment</a>
+          <a href={url('/contact/')} class="btn btn-ghost"><Icon name="calendar" size={18} /> Book an appointment</a>
           <a href={site.locations[0].directions} class="btn btn-ghost" rel="noopener"><Icon name="pin" size={18} /> Get directions</a>
         </div>
       </div>
@@ -36,7 +37,7 @@ import { site, services, whyChoose, facilities, promise, labMenu } from '../data
       <div class="grid grid-3">
         {
           services.map((s) => (
-            <a href="/services/" class="card card-hover" data-reveal style="text-decoration:none;color:inherit">
+            <a href={url('/services/')} class="card card-hover" data-reveal style="text-decoration:none;color:inherit">
               <span class="card-icon"><Icon name={s.icon} /></span>
               <h3>{s.title}</h3>
               <Todo text="short description" />
@@ -71,7 +72,7 @@ import { site, services, whyChoose, facilities, promise, labMenu } from '../data
       <div data-reveal>
         <h2>Facilities &amp; care</h2>
         <p class="lead">{facilities}</p>
-        <a href="/about/" class="btn btn-ghost">About us <Icon name="arrow" size={18} /></a>
+        <a href={url('/about/')} class="btn btn-ghost">About us <Icon name="arrow" size={18} /></a>
       </div>
     </div>
   </section>
@@ -95,7 +96,7 @@ import { site, services, whyChoose, facilities, promise, labMenu } from '../data
           ))
         }
       </div>
-      <p style="margin-top:28px"><a href="/laboratory/" class="btn btn-primary">See the full test menu <Icon name="arrow" size={18} /></a></p>
+      <p style="margin-top:28px"><a href={url('/laboratory/')} class="btn btn-primary">See the full test menu <Icon name="arrow" size={18} /></a></p>
     </div>
   </section>
 
@@ -104,7 +105,7 @@ import { site, services, whyChoose, facilities, promise, labMenu } from '../data
       <div data-reveal>
         <h2>Community outreach</h2>
         <Todo block text="Short summary of WMC community outreach programmes." />
-        <p style="margin-top:20px"><a href="/outreach/" class="btn btn-ghost">Our outreach <Icon name="arrow" size={18} /></a></p>
+        <p style="margin-top:20px"><a href={url('/outreach/')} class="btn btn-ghost">Our outreach <Icon name="arrow" size={18} /></a></p>
       </div>
       <Photo slot="home-outreach" label="Community outreach event" ratio="4 / 3" />
     </div>
