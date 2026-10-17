@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import Todo from '../components/Todo.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+---
+
+<Base title="Privacy Policy" description={`How ${site.shortName} handles personal data on this website.`}>
+  <PageHero eyebrow="Privacy" title="Privacy Policy">
+    <Todo block text="Draft for the hospital to review and approve before launch. Add the date it takes effect." />
+  </PageHero>
+
+  <section class="section" style="padding-top:0">
+    <div class="container prose">
+      <p class="lead">
+        This notice explains, in plain language, what happens to personal data when you use this website. It follows
+        the Nigeria Data Protection Act 2023.
+      </p>
+
+      <h2>Who we are</h2>
+      <p>
+        This website belongs to {site.name}, {site.locations[0].address}. We are responsible for personal data
+        collected through it.
+      </p>
+
+      <h2>What this website collects</h2>
+      <ul>
+        <li>There are no forms on this website. We do not ask for your name, health information or any other personal details here.</li>
+        <li>We do not use advertising or tracking cookies, and we do not use tracking pixels.</li>
+        <li>
+          Like any website, our hosting provider keeps short-term technical records (such as your IP address and the
+          pages requested) to keep the site running and secure.
+        </li>
+        <li>
+          The map on our Contact page is provided by Google Maps. It only loads if you choose to show it. Google then
+          handles that data under its own privacy policy.
+        </li>
+      </ul>
+
+      <h2>When you call or email us</h2>
+      <p>
+        If you phone or email us, we use what you tell us only to respond to you and to arrange your care. We do not
+        sell or share it for marketing.
+      </p>
+
+      <h2>Your rights</h2>
+      <p>Under the Nigeria Data Protection Act 2023 you can ask us to:</p>
+      <ul>
+        <li>tell you what personal data we hold about you and give you a copy;</li>
+        <li>correct data that is wrong or incomplete;</li>
+        <li>delete your data where the law allows;</li>
+        <li>stop or limit how we use your data.</li>
+      </ul>
+      <p>
+        You can also complain to the Nigeria Data Protection Commission (NDPC) if you are unhappy with how we handle
+        your data.
+      </p>
+
+      <h2>Contact us about privacy</h2>
+      <p>
+        Email <a href={`mailto:${site.email}`}>{site.email}</a> or call <a href={site.phone.href}>{site.phone.display}</a>.
+      </p>
+      <Todo block text="Name or role of the hospital's Data Protection Officer, if one is appointed." />
+
+      <h2>Changes to this notice</h2>
+      <p>If we change how this website handles personal data, for example by adding an appointment form, we will update this page first.</p>
+    </div>
+  </section>
+</Base>

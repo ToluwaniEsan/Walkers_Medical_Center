@@ -1,0 +1,25 @@
+---
+import { site } from '../data/site';
+import Icon from './Icon.astro';
+interface Props {
+  title?: string;
+  text?: string;
+}
+const {
+  title = '24-hour care',
+  text = site.hours.notes[0],
+} = Astro.props;
+---
+
+<section class="urgent-banner" aria-label="Urgent care">
+  <div class="container urgent-inner">
+    <Icon name="clock" size={28} class="urgent-icon" />
+    <div class="urgent-copy">
+      <p class="urgent-title">{title}</p>
+      <p class="urgent-text">{text}</p>
+    </div>
+    <a href={site.phone.href} class="btn btn-urgent">
+      <Icon name="phone" size={18} /> Call {site.phone.display}
+    </a>
+  </div>
+</section>

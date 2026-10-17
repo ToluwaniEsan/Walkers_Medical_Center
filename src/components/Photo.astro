@@ -1,0 +1,44 @@
+---
+// A photo slot. Shows the real photo when one is registered in
+// src/assets/photos/index.ts, otherwise a placeholder of the same shape.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { photos, type PhotoSlot } from '../assets/photos';
+import Icon from './Icon.astro';
+
+interface Props {
+  slot: PhotoSlot;
+  label: string;
+  alt?: string;
+  ratio?: string;
+  mobileRatio?: string;
+  eager?: boolean;
+  class?: string;
+}
+const { slot, label, alt = label, ratio = '4 / 3', mobileRatio, eager = false, class: className } =
+  Astro.props;
+const src = photos[slot] as ImageMetadata | null;
+---
+
+<figure
+  class:list={['photo', className]}
+  style={`--ratio: ${ratio}; --ratio-mobile: ${mobileRatio ?? ratio};`}
+>
+  {
+    src ? (
+      <Image
+        src={src}
+        alt={alt}
+        widths={[480, 960, 1600]}
+        sizes="(max-width: 720px) 100vw, 50vw"
+        format="webp"
+        loading={eager ? 'eager' : 'lazy'}
+      />
+    ) : (
+      <div class="photo-placeholder" role="img" aria-label={`Photo needed: ${label}`}>
+        <Icon name="image" size={32} />
+        <span class="photo-label">Photo needed: {label}</span>
+      </div>
+    )
+  }
+</figure>

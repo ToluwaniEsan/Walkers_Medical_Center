@@ -1,0 +1,20 @@
+---
+import { site } from '../data/site';
+import Icon from './Icon.astro';
+---
+
+<section class="section contact-strip-wrap">
+  <div class="container">
+    <div class="contact-strip glass" data-reveal>
+      <div>
+        <h2 class="h3">Speak with our team</h2>
+        <p class="muted">{site.hours.summary}. {site.hours.notes[1]}</p>
+      </div>
+      <div class="contact-strip-actions">
+        <a href={site.phone.href} class="btn btn-primary"><Icon name="phone" size={18} /> {site.phone.display}</a>
+        <a href={`mailto:${site.email}`} class="btn btn-ghost"><Icon name="mail" size={18} /> Email us</a>
+        <a href={site.locations[0].directions} class="btn btn-ghost" rel="noopener"><Icon name="pin" size={18} /> Directions</a>
+      </div>
+    </div>
+  </div>
+</section>

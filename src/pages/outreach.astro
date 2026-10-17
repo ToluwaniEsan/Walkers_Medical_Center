@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import Todo from '../components/Todo.astro';
+import PageHero from '../components/PageHero.astro';
+import ContactStrip from '../components/ContactStrip.astro';
+import type { PhotoSlot } from '../assets/photos';
+
+const gallery = [1, 2, 3, 4, 5, 6].map((n) => `outreach-gallery-${n}` as PhotoSlot);
+---
+
+<Base title="Community Outreach">
+  <PageHero eyebrow="Outreach" title="Community Outreach">
+    <Todo block text="Introduction to WMC community outreach programmes." />
+  </PageHero>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="grid grid-3">
+        {gallery.map((slot, i) => <Photo slot={slot} label={`Outreach photo ${i + 1}`} ratio="3 / 2" eager={i < 3} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-mist">
+    <div class="container">
+      <div class="section-head"><h2>Past programmes</h2></div>
+      <div class="grid grid-3">
+        {
+          [1, 2, 3].map((n) => (
+            <div class="card" data-reveal>
+              <Todo block text={`Programme ${n}: name, date, place and a short summary.`} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <ContactStrip />
+</Base>
