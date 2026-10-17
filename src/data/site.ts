@@ -13,6 +13,13 @@ export const site = {
   },
   email: 'walkersmedicalcenterileife@gmail.com',
   linkedin: 'https://www.linkedin.com/company/walkers-medical-center/' as string | null,
+  // Contact form messages are relayed to the hospital inbox by FormSubmit
+  // (formsubmit.co). The first message triggers a one-time confirmation email
+  // to this address; nothing arrives until someone clicks "Activate" in it.
+  form: {
+    action: 'https://formsubmit.co/walkersmedicalcenterileife@gmail.com',
+    ajax: 'https://formsubmit.co/ajax/walkersmedicalcenterileife@gmail.com',
+  },
   hours: {
     summary: '24-hour care',
     notes: [

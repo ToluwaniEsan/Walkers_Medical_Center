@@ -22,3 +22,7 @@ Anything the hospital has not supplied yet is shown with a **Content needed** ma
 ## Hosting on GitHub Pages
 
 `.github/workflows/deploy-pages.yml` builds the site and publishes it on every push to `main`. In the repo's **Settings → Pages**, set **Source** to **GitHub Actions**. The workflow passes the Pages address to the build, so links work under `/Walkers_Medical_Center/`. Internal links use `url()` from `src/lib/url.ts` for this reason.
+
+## Contact form
+
+The message form on the Contact page sends through [FormSubmit](https://formsubmit.co) to the address in `site.form` (`src/data/site.ts`). The first message ever sent triggers a one-time "Activate form" email to that inbox; messages only arrive after someone clicks it. To send to a different inbox, change both URLs in `site.form`.
