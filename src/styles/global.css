@@ -633,17 +633,17 @@ ul { padding-left: 1.2em; }
 .site-footer .container { max-width: 1280px; }
 .footer-grid { display: grid; gap: 40px 56px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
 /* Wide screens: let Contact size to the email address so it stays on one line. */
-@media (min-width: 1080px) {
-  .footer-grid { grid-template-columns: minmax(260px, 1.2fr) minmax(240px, 1fr) max-content max-content; }
+@media (min-width: 1100px) {
+  .footer-grid { grid-template-columns: minmax(200px, 1.2fr) minmax(200px, 1fr) max-content max-content; column-gap: 40px; }
   .footer-email { white-space: nowrap; }
 }
 /* Tablets: a 2 x 2 grid, wide enough for the email on one line. */
-@media (min-width: 720px) and (max-width: 1079px) {
+@media (min-width: 720px) and (max-width: 1099px) {
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .footer-email { white-space: nowrap; }
 }
 /* Narrower screens: two short columns of page links instead of one long list. */
-@media (max-width: 1079px) {
+@media (max-width: 1099px) {
   .footer-pages .footer-list { grid-template-columns: repeat(2, max-content); column-gap: 32px; }
 }
 .footer-heading { color: var(--on-dark); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
