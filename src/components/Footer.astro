@@ -15,10 +15,15 @@ const year = new Date().getFullYear();
     </div>
     <div>
       <h2 class="footer-heading">Visit us</h2>
-      <address>
-        {site.locations[0].address}<br />
-        {site.locations[1].region}: <em>address coming soon</em>
-      </address>
+      {
+        site.locations.map((loc) => (
+          <address class="footer-address">
+            <strong>{loc.name}</strong>
+            <br />
+            {loc.address}
+          </address>
+        ))
+      }
     </div>
     <div>
       <h2 class="footer-heading">Contact</h2>

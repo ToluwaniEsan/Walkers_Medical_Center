@@ -26,7 +26,6 @@ export const photos = {
   'outreach-gallery-4': null,
   'outreach-gallery-5': null,
   'outreach-gallery-6': null,
-  'contact-map': null,
 } satisfies Record<string, ImageMetadata | null>;
 
 export type PhotoSlot = keyof typeof photos;

@@ -4,7 +4,7 @@ import Icon from '../components/Icon.astro';
 import Photo from '../components/Photo.astro';
 import Todo from '../components/Todo.astro';
 import PageHero from '../components/PageHero.astro';
-import { site, labMenu } from '../data/site';
+import { site, labMenu, slug } from '../data/site';
 ---
 
 <Base title="Laboratory & Diagnostics">
@@ -20,11 +20,18 @@ import { site, labMenu } from '../data/site';
 
   <section class="section" style="padding-top:0">
     <div class="container">
-      <div class="section-head"><h2>Test menu</h2></div>
+      <div class="lab-head">
+        <h2>Test menu</h2>
+        <div class="lab-search">
+          <Icon name="search" size={18} />
+          <label class="visually-hidden" for="lab-search">Search tests</label>
+          <input id="lab-search" type="search" placeholder="Search tests, e.g. malaria" autocomplete="off" data-lab-search />
+        </div>
+      </div>
       <div class="lab-panels">
         {
           labMenu.map((group, i) => (
-            <details class="card lab-panel" open={i === 0}>
+            <details class="card lab-panel" id={slug(group.category)} open={i === 0}>
               <summary>
                 <span class="card-icon"><Icon name="microscope" /></span>
                 {group.category}
@@ -38,6 +45,9 @@ import { site, labMenu } from '../data/site';
           ))
         }
       </div>
+      <p class="lab-empty" hidden data-lab-empty>
+        No tests match your search. <a href={site.phone.href}>Call {site.phone.display}</a> to ask about it.
+      </p>
       <div style="margin-top:24px">
         <Todo block text="Pricing note: show test prices, or ask patients to call for pricing (to be decided by the hospital)." />
       </div>
@@ -56,3 +66,32 @@ import { site, labMenu } from '../data/site';
     </div>
   </section>
 </Base>
+
+<script>
+  // Open the panel named in the address (e.g. /laboratory/#chemistry from the home page).
+  const fromHash = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+  if (fromHash instanceof HTMLDetailsElement) fromHash.open = true;
+
+  // Filter the test menu as the visitor types.
+  const search = document.querySelector<HTMLInputElement>('[data-lab-search]');
+  const panels = [...document.querySelectorAll<HTMLDetailsElement>('.lab-panel')];
+  const empty = document.querySelector<HTMLElement>('[data-lab-empty]');
+  const initiallyOpen = panels.map((p) => p.open);
+  search?.addEventListener('input', () => {
+    const q = search.value.trim().toLowerCase();
+    let matches = 0;
+    panels.forEach((panel, i) => {
+      const inCategory = panel.querySelector('summary')!.textContent!.toLowerCase().includes(q);
+      let shown = 0;
+      panel.querySelectorAll('li').forEach((li) => {
+        const hit = !q || inCategory || li.textContent!.toLowerCase().includes(q);
+        li.hidden = !hit;
+        if (hit) shown++;
+      });
+      panel.hidden = shown === 0;
+      panel.open = q ? shown > 0 : initiallyOpen[i];
+      matches += shown;
+    });
+    if (empty) empty.hidden = matches > 0;
+  });
+</script>

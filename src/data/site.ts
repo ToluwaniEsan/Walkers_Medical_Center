@@ -24,14 +24,16 @@ export const site = {
     {
       name: 'Ile-Ife',
       address: 'Powerline Bus Stop, Ajebamidele, Ile-Ife, Osun State',
+      region: 'Ile-Ife, Osun State',
       directions:
         'https://www.google.com/maps/search/?api=1&query=Powerline+Bus+Stop%2C+Ajebamidele%2C+Ile-Ife%2C+Osun+State',
     },
     {
       name: 'Ede',
-      address: null as string | null,
+      // Google Plus Code supplied by the hospital.
+      address: 'PC7M+86M, Ede 232101, Osun, Nigeria',
       region: 'Ede, Osun State',
-      directions: null as string | null,
+      directions: 'https://www.google.com/maps/search/?api=1&query=PC7M%2B86M%2C+Ede+232101%2C+Osun%2C+Nigeria',
     },
   ],
 };
@@ -71,15 +73,15 @@ export const services = [
   { title: 'Antenatal services', icon: 'baby' },
 ] as const;
 
-export const units: { title: string; description: string | null }[] = [
-  { title: 'Medical (doctors)', description: null },
-  { title: 'Nursing', description: null },
-  { title: "Nurses' front desk officers", description: null },
-  { title: 'Theatre', description: null },
-  { title: 'Laboratory & Diagnostics', description: null },
-  { title: 'Pharmacy / Health Dispensary', description: null },
-  { title: 'Environmental Health', description: 'Keeps the environment clean.' },
-  { title: 'Administrative', description: null },
+export const units: { title: string; description: string }[] = [
+  { title: 'Medical (doctors)', description: 'Diagnoses, treats and follows up patients across orthopaedic and general care.' },
+  { title: 'Nursing', description: 'Provides round-the-clock bedside care, monitoring and support for patients.' },
+  { title: "Nurses' front desk officers", description: 'Welcomes patients, handles registration and guides you to the right care.' },
+  { title: 'Theatre', description: 'Carries out orthopaedic and general surgical procedures in a safe, sterile setting.' },
+  { title: 'Laboratory & Diagnostics', description: 'Runs the tests that help our doctors reach an accurate diagnosis.' },
+  { title: 'Pharmacy / Health Dispensary', description: 'Dispenses prescribed medicines and explains how to take them safely.' },
+  { title: 'Environmental Health', description: 'Keeps the hospital environment clean, hygienic and safe.' },
+  { title: 'Administrative', description: 'Manages records, billing and the day-to-day running of the hospital.' },
 ];
 
 export const labMenu = [
@@ -112,3 +114,6 @@ export const labMenu = [
     tests: ['Malaria Tests', 'Widal Test', 'Urine M/C/S'],
   },
 ];
+
+// URL-friendly id for a lab category, e.g. 'Haematology' -> 'haematology'.
+export const slug = (text: string) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');

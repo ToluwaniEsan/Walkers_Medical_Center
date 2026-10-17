@@ -2,7 +2,6 @@
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import Photo from '../components/Photo.astro';
-import Todo from '../components/Todo.astro';
 import PageHero from '../components/PageHero.astro';
 import ContactStrip from '../components/ContactStrip.astro';
 import { site, about, promise, units } from '../data/site';
@@ -51,8 +50,8 @@ const gallery = [1, 2, 3, 4, 5, 6].map((n) => `about-gallery-${n}` as PhotoSlot)
         <div class="card" data-reveal>
           <span class="card-icon"><Icon name="building" /></span>
           <h3>{site.locations[1].name}</h3>
-          <p class="muted">{site.locations[1].region}</p>
-          <Todo block text="Ede branch street address and phone number." />
+          <address class="muted">{site.locations[1].address}</address>
+          <p style="margin-top:16px"><a href={site.locations[1].directions} class="btn btn-ghost" rel="noopener"><Icon name="pin" size={18} /> Get directions</a></p>
         </div>
       </div>
     </div>
@@ -66,7 +65,7 @@ const gallery = [1, 2, 3, 4, 5, 6].map((n) => `about-gallery-${n}` as PhotoSlot)
           units.map((u) => (
             <div class="card" data-reveal>
               <h3>{u.title}</h3>
-              {u.description ? <p class="muted">{u.description}</p> : <Todo text="short description" />}
+              <p class="muted">{u.description}</p>
             </div>
           ))
         }

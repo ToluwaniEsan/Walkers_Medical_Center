@@ -103,3 +103,41 @@ const footer = document.querySelector('.site-footer');
 if (fab && footer && 'IntersectionObserver' in window) {
   new IntersectionObserver(([entry]) => fab.classList.toggle('is-hidden', entry.isIntersecting)).observe(footer);
 }
+
+// Cards lean away from the pointer, as if it were pressing on them, with a soft
+// light following it. Mouse: on hover. Touch: while the finger is down, then the
+// card springs back. Larger cards tilt less so they never feel wobbly.
+if (!reduceMotion) {
+  const cards = document.querySelectorAll<HTMLElement>('.card:not(.lab-panel)');
+  cards.forEach((card) => {
+    card.classList.add('tilt');
+    const press = (e: PointerEvent) => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width;
+      const y = (e.clientY - r.top) / r.height;
+      const max = Math.min(8, 2400 / r.width);
+      card.style.transition = 'transform 0.12s ease-out, box-shadow 0.25s, border-color 0.25s';
+      card.style.transform = `perspective(900px) rotateX(${((0.5 - y) * 2 * max).toFixed(2)}deg) rotateY(${((x - 0.5) * 2 * max).toFixed(2)}deg) scale(0.985)`;
+      card.style.setProperty('--gx', `${(x * 100).toFixed(1)}%`);
+      card.style.setProperty('--gy', `${(y * 100).toFixed(1)}%`);
+      card.classList.add('is-tilting');
+    };
+    const release = () => {
+      card.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.25s, border-color 0.25s';
+      card.style.transform = '';
+      card.classList.remove('is-tilting');
+    };
+    card.addEventListener('pointermove', (e) => {
+      if (e.pointerType === 'mouse') press(e);
+    });
+    card.addEventListener('pointerleave', release);
+    card.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse') press(e);
+    });
+    card.addEventListener('pointerup', (e) => {
+      if (e.pointerType !== 'mouse') release();
+    });
+    // A touch that turns into a scroll is cancelled; spring back then too.
+    card.addEventListener('pointercancel', release);
+  });
+}
