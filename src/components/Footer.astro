@@ -24,7 +24,7 @@ const year = new Date().getFullYear();
       <h2 class="footer-heading">Contact</h2>
       <ul class="footer-list">
         <li><a href={site.phone.href}><Icon name="phone" size={18} /> {site.phone.display}</a></li>
-        <li><a href={`mailto:${site.email}`}><Icon name="mail" size={18} /> {site.email}</a></li>
+        <li><a href={`mailto:${site.email}`} class="footer-email"><Icon name="mail" size={18} /> {site.email}</a></li>
         <li>
           {
             site.linkedin ? (
@@ -40,7 +40,7 @@ const year = new Date().getFullYear();
         </li>
       </ul>
     </div>
-    <nav aria-label="Footer">
+    <nav aria-label="Footer" class="footer-pages">
       <h2 class="footer-heading">Pages</h2>
       <ul class="footer-list">
         {nav.map((item) => <li><a href={url(item.href)}>{item.label}</a></li>)}

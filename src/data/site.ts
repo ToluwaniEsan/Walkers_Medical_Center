@@ -12,7 +12,7 @@ export const site = {
     label: '24-hour urgent line',
   },
   email: 'walkersmedicalcenterileife@gmail.com',
-  linkedin: null as string | null,
+  linkedin: 'https://www.linkedin.com/company/walkers-medical-center/' as string | null,
   hours: {
     summary: '24-hour care',
     notes: [
