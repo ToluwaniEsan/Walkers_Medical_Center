@@ -104,11 +104,28 @@ if (fab && footer && 'IntersectionObserver' in window) {
   new IntersectionObserver(([entry]) => fab.classList.toggle('is-hidden', entry.isIntersecting)).observe(footer);
 }
 
+// Flip cards turn over on click or tap. Only the visible face can be focused
+// or read, and focus follows the turn so keyboard users stay in place.
+document.querySelectorAll<HTMLElement>('[data-flip]').forEach((card) => {
+  const [front, back] = card.querySelectorAll<HTMLElement>('.flip-face');
+  const [toBack, toFront] = card.querySelectorAll<HTMLButtonElement>('.flip-btn');
+  const turn = (flipped: boolean) => {
+    card.classList.toggle('is-flipped', flipped);
+    front.inert = flipped;
+    back.inert = !flipped;
+    toBack.setAttribute('aria-expanded', String(flipped));
+    (flipped ? toFront : toBack).focus({ preventScroll: true });
+  };
+  back.inert = true;
+  toBack.addEventListener('click', () => turn(true));
+  toFront.addEventListener('click', () => turn(false));
+});
+
 // Cards lean away from the pointer, as if it were pressing on them, with a soft
 // light following it. Mouse: on hover. Touch: while the finger is down, then the
 // card springs back. Larger cards tilt less so they never feel wobbly.
 if (!reduceMotion) {
-  const cards = document.querySelectorAll<HTMLElement>('.card:not(.lab-panel)');
+  const cards = document.querySelectorAll<HTMLElement>('.card:not(.lab-panel), .flip');
   cards.forEach((card) => {
     card.classList.add('tilt');
     const press = (e: PointerEvent) => {

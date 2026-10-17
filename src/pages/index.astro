@@ -4,6 +4,7 @@ import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import Photo from '../components/Photo.astro';
 import Todo from '../components/Todo.astro';
+import FlipCard from '../components/FlipCard.astro';
 import UrgentBanner from '../components/UrgentBanner.astro';
 import ContactStrip from '../components/ContactStrip.astro';
 import { site, services, whyChoose, facilities, promise, labMenu, slug } from '../data/site';
@@ -36,17 +37,16 @@ const labTotal = labMenu.reduce((n, g) => n + g.tests.length, 0);
       <div class="section-head">
         <h2>Our services</h2>
       </div>
-      <div class="grid grid-tiles">
+      <div class="grid flip-grid">
         {
           services.map((s) => (
-            <a href={url('/services/')} class="card card-hover" data-reveal style="text-decoration:none;color:inherit">
-              <span class="card-icon"><Icon name={s.icon} /></span>
-              <h3>{s.title}</h3>
-              <Todo text="short description" />
-            </a>
+            <FlipCard title={s.title} icon={s.icon}>
+              <p>{s.description}</p>
+            </FlipCard>
           ))
         }
       </div>
+      <p class="section-more"><a href={url('/services/')} class="btn btn-ghost">All services <Icon name="arrow" size={18} class="btn-arrow" /></a></p>
     </div>
   </section>
 
@@ -55,14 +55,12 @@ const labTotal = labMenu.reduce((n, g) => n + g.tests.length, 0);
       <div class="section-head">
         <h2>Why choose Walkers</h2>
       </div>
-      <div class="grid grid-4 grid-features">
+      <div class="grid flip-grid flip-grid-4">
         {
           whyChoose.map((w) => (
-            <div class="card feature" data-reveal>
-              <span class="card-icon"><Icon name={w.icon} /></span>
-              <h3>{w.title}</h3>
-              {w.text && <p>{w.text}</p>}
-            </div>
+            <FlipCard title={w.title} icon={w.icon} class="flip-round">
+              <p>{w.text}</p>
+            </FlipCard>
           ))
         }
       </div>

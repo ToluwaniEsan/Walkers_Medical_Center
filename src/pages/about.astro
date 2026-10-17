@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import Photo from '../components/Photo.astro';
 import PageHero from '../components/PageHero.astro';
+import FlipCard from '../components/FlipCard.astro';
 import ContactStrip from '../components/ContactStrip.astro';
 import { site, about, promise, units } from '../data/site';
 import type { PhotoSlot } from '../assets/photos';
@@ -60,13 +61,12 @@ const gallery = [1, 2, 3, 4, 5, 6].map((n) => `about-gallery-${n}` as PhotoSlot)
   <section class="section section-mist">
     <div class="container">
       <div class="section-head"><h2>Our units</h2></div>
-      <div class="grid grid-4">
+      <div class="grid flip-grid flip-grid-4">
         {
           units.map((u) => (
-            <div class="card" data-reveal>
-              <h3>{u.title}</h3>
-              <p class="muted">{u.description}</p>
-            </div>
+            <FlipCard title={u.title} icon={u.icon}>
+              <p>{u.description}</p>
+            </FlipCard>
           ))
         }
       </div>

@@ -58,30 +58,30 @@ export const facilities =
 
 // `text` is an optional one-line explanation, shown once the hospital supplies it.
 export const whyChoose: { title: string; icon: string; text: string | null }[] = [
-  { title: 'Compassionate, respectful care', icon: 'heart', text: null },
-  { title: 'Affordable, quality healthcare', icon: 'shield', text: null },
-  { title: 'Ethical care from a professional team', icon: 'users', text: null },
-  { title: 'Convenient locations in Osun State', icon: 'pin', text: null },
+  { title: 'Compassionate, respectful care', icon: 'heart', text: 'Every patient and family is treated with kindness, patience and dignity.' },
+  { title: 'Affordable, quality healthcare', icon: 'shield', text: 'Good care at fair prices, so cost never stands between you and treatment.' },
+  { title: 'Ethical care from a professional team', icon: 'users', text: 'Trained doctors, nurses and staff who put your safety and honesty first.' },
+  { title: 'Convenient locations in Osun State', icon: 'pin', text: 'Two branches, in Ile-Ife and Ede, close to the communities we serve.' },
 ];
 
 export const services = [
-  { title: 'Orthopaedic consultations & surgeries', icon: 'bone', featured: true },
-  { title: 'General medical care', icon: 'stethoscope' },
-  { title: 'Urgent and emergency care', icon: 'alert' },
-  { title: 'Laboratory services', icon: 'flask' },
-  { title: 'Patient-centred follow-up', icon: 'calendar' },
-  { title: 'Antenatal services', icon: 'baby' },
+  { title: 'Orthopaedic consultations & surgeries', icon: 'bone', featured: true, description: 'Assessment and treatment of bone, joint and muscle problems, including surgery when needed.' },
+  { title: 'General medical care', icon: 'stethoscope', description: 'Consultations, diagnosis and treatment for everyday illnesses and long-term conditions.' },
+  { title: 'Urgent and emergency care', icon: 'alert', description: 'A 24-hour line and a team ready to attend to urgent cases. Call ahead when you can.' },
+  { title: 'Laboratory services', icon: 'flask', description: 'Blood, chemistry and microbiology tests to support quick, accurate diagnosis.' },
+  { title: 'Patient-centred follow-up', icon: 'calendar', description: 'Check-ups after treatment to make sure your recovery stays on track.' },
+  { title: 'Antenatal services', icon: 'baby', description: 'Care and monitoring for mothers and babies throughout pregnancy.' },
 ] as const;
 
-export const units: { title: string; description: string }[] = [
-  { title: 'Medical (doctors)', description: 'Diagnoses, treats and follows up patients across orthopaedic and general care.' },
-  { title: 'Nursing', description: 'Provides round-the-clock bedside care, monitoring and support for patients.' },
-  { title: "Nurses' front desk officers", description: 'Welcomes patients, handles registration and guides you to the right care.' },
-  { title: 'Theatre', description: 'Carries out orthopaedic and general surgical procedures in a safe, sterile setting.' },
-  { title: 'Laboratory & Diagnostics', description: 'Runs the tests that help our doctors reach an accurate diagnosis.' },
-  { title: 'Pharmacy / Health Dispensary', description: 'Dispenses prescribed medicines and explains how to take them safely.' },
-  { title: 'Environmental Health', description: 'Keeps the hospital environment clean, hygienic and safe.' },
-  { title: 'Administrative', description: 'Manages records, billing and the day-to-day running of the hospital.' },
+export const units: { title: string; icon: string; description: string }[] = [
+  { title: 'Medical (doctors)', icon: 'stethoscope', description: 'Diagnoses, treats and follows up patients across orthopaedic and general care.' },
+  { title: 'Nursing', icon: 'heart', description: 'Provides round-the-clock bedside care, monitoring and support for patients.' },
+  { title: "Nurses' front desk officers", icon: 'users', description: 'Welcomes patients, handles registration and guides you to the right care.' },
+  { title: 'Theatre', icon: 'activity', description: 'Carries out orthopaedic and general surgical procedures in a safe, sterile setting.' },
+  { title: 'Laboratory & Diagnostics', icon: 'flask', description: 'Runs the tests that help our doctors reach an accurate diagnosis.' },
+  { title: 'Pharmacy / Health Dispensary', icon: 'pill', description: 'Dispenses prescribed medicines and explains how to take them safely.' },
+  { title: 'Environmental Health', icon: 'leaf', description: 'Keeps the hospital environment clean, hygienic and safe.' },
+  { title: 'Administrative', icon: 'clipboard', description: 'Manages records, billing and the day-to-day running of the hospital.' },
 ];
 
 export const labMenu = [

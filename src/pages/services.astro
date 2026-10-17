@@ -5,6 +5,7 @@ import Icon from '../components/Icon.astro';
 import Photo from '../components/Photo.astro';
 import Todo from '../components/Todo.astro';
 import PageHero from '../components/PageHero.astro';
+import FlipCard from '../components/FlipCard.astro';
 import { site, services } from '../data/site';
 
 const featured = services.find((s) => 'featured' in s && s.featured)!;
@@ -23,7 +24,7 @@ const others = services.filter((s) => s !== featured);
         <div class="featured-body">
           <p class="chip"><Icon name="bone" size={16} /> Our specialty</p>
           <h2 style="margin-top:16px">{featured.title}</h2>
-          <Todo block text="Description of orthopaedic consultations and surgeries." />
+          <p class="lead">{featured.description}</p>
           <p style="margin-top:20px"><a href={site.phone.href} class="btn btn-primary"><Icon name="phone" size={18} /> Call to book</a></p>
         </div>
       </article>
@@ -33,15 +34,13 @@ const others = services.filter((s) => s !== featured);
   <section class="section section-mist">
     <div class="container">
       <div class="section-head"><h2>More services</h2></div>
-      <div class="grid grid-tiles">
+      <div class="grid flip-grid">
         {
           others.map((s) => (
-            <div class="card card-hover" data-reveal>
-              <span class="card-icon"><Icon name={s.icon} /></span>
-              <h3>{s.title}</h3>
-              <Todo text="short description" />
-              {s.icon === 'flask' && <p style="margin-top:12px"><a href={url('/laboratory/')}>See the test menu</a></p>}
-            </div>
+            <FlipCard title={s.title} icon={s.icon}>
+              <p>{s.description}</p>
+              {s.icon === 'flask' && <p><a href={url('/laboratory/')}>See the test menu</a></p>}
+            </FlipCard>
           ))
         }
       </div>
