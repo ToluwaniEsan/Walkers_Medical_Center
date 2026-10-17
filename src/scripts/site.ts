@@ -6,6 +6,28 @@ const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 
 onScroll();
 window.addEventListener('scroll', onScroll, { passive: true });
 
+// Light/dark toggle. Follows the device setting until the visitor picks one.
+const root = document.documentElement;
+const themeToggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+const applyTheme = (dark: boolean) => {
+  root.classList.toggle('is-dark', dark);
+  themeToggle?.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#0E1420' : '#064CA4');
+};
+applyTheme(root.classList.contains('is-dark'));
+themeToggle?.addEventListener('click', () => {
+  const dark = !root.classList.contains('is-dark');
+  root.dataset.theme = dark ? 'dark' : 'light';
+  try {
+    localStorage.setItem('wmc-theme', root.dataset.theme);
+  } catch {}
+  applyTheme(dark);
+});
+darkQuery.addEventListener('change', (e) => {
+  if (!root.dataset.theme) applyTheme(e.matches);
+});
+
 // Mobile menu.
 const toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
 toggle?.addEventListener('click', () => {
